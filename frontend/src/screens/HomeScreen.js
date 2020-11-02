@@ -31,10 +31,10 @@ const HomeScreen = ({ match }) => {
         <ProductCarousel />
       ) : (
         <Link to='/' className='btn btn-light'>
-          Go Back
+          Quay về
         </Link>
       )}
-      <h1>Latest Products</h1>
+      <h1>Sản phẩm mới</h1>
       {loading ? (
         <Loader />
       ) : error ? (
