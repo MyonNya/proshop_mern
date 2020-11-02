@@ -112,7 +112,7 @@ export const payOrder = (orderId, paymentResult) => async (
       paymentResult,
       config
     )
-
+    localStorage.removeItem('cartitems')
     dispatch({
       type: ORDER_PAY_SUCCESS,
       payload: data,
