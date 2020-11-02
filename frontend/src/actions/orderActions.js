@@ -117,7 +117,11 @@ export const payOrder = (orderId, paymentResult) => async (
       type: ORDER_PAY_SUCCESS,
       payload: data,
     })
-    localStorage.removeItem('cartitems')
+    dispatch({
+      type: CART_CLEAR_ITEMS,
+      payload: data,
+    })
+        localStorage.removeItem('cartItems')
   } catch (error) {
     dispatch({
       type: ORDER_PAY_FAIL,
