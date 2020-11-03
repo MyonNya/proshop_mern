@@ -63,7 +63,7 @@ const OrderScreen = ({ match, history }) => {
       document.body.appendChild(script)
     }
 
-    if (!order || successPay || successDeliver) {
+    if (!order || successPay || successDeliver || order._id !== orderId) {
       dispatch({ type: ORDER_PAY_RESET })
       dispatch({ type: ORDER_DELIVER_RESET })
       dispatch(getOrderDetails(orderId))
@@ -91,12 +91,12 @@ const OrderScreen = ({ match, history }) => {
     <Message variant='danger'>{error}</Message>
   ) : (
     <>
-      <h1>Order {order._id}</h1>
+      <h1>Đơn hàng {order._id}</h1>
       <Row>
         <Col md={8}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h2>Giao hàng</h2>
+              <h2>Vận chuyển</h2>
               <p>
                 <strong>Tên: </strong> {order.user.name}
               </p>
@@ -112,10 +112,10 @@ const OrderScreen = ({ match, history }) => {
               </p>
               {order.isDelivered ? (
                 <Message variant='success'>
-                  Ngày giao hàng {order.deliveredAt}
+                  Vận chuyển tới {order.deliveredAt}
                 </Message>
               ) : (
-                <Message variant='danger'>Chưa giao</Message>
+                <Message variant='danger'>Chưa vận chuyển</Message>
               )}
             </ListGroup.Item>
 
@@ -126,7 +126,7 @@ const OrderScreen = ({ match, history }) => {
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant='success'>Ngày thanh toán {order.paidAt}</Message>
+                <Message variant='success'>Thanh toán vào {order.paidAt}</Message>
               ) : (
                 <Message variant='danger'>Chưa thanh toán</Message>
               )}
@@ -219,7 +219,7 @@ const OrderScreen = ({ match, history }) => {
                       className='btn btn-block'
                       onClick={deliverHandler}
                     >
-                      Đánh dấu đã giao
+                      Đánh dấu đã vận chuyển
                     </Button>
                   </ListGroup.Item>
                 )}

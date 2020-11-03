@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { createOrder } from '../actions/orderActions'
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch()
@@ -33,6 +34,7 @@ const PlaceOrderScreen = ({ history }) => {
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`)
+      dispatch({ type: ORDER_CREATE_RESET })
     }
     // eslint-disable-next-line
   }, [history, success])
@@ -58,7 +60,7 @@ const PlaceOrderScreen = ({ history }) => {
         <Col md={8}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h2>Giao hàng</h2>
+              <h2>Vận chuyển</h2>
               <p>
                 <strong>Địa chỉ:</strong>
                 {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
@@ -110,7 +112,7 @@ const PlaceOrderScreen = ({ history }) => {
           <Card>
             <ListGroup variant='flush'>
               <ListGroup.Item>
-                <h2>Tổng quan dơn hàng</h2>
+                <h2>Tổng quan đơn hàng</h2>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
@@ -120,7 +122,7 @@ const PlaceOrderScreen = ({ history }) => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>Giao hàng</Col>
+                  <Col>Vận chuyển</Col>
                   <Col>${cart.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>

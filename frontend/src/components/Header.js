@@ -29,7 +29,7 @@ const Header = () => {
             <Nav className='ml-auto'>
               <LinkContainer to='/cart'>
                 <Nav.Link>
-                  <i className='fas fa-shopping-cart'></i> Giỏ hàng
+                  <i className='fas fa-shopping-cart'></i> Cart
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
@@ -51,7 +51,7 @@ const Header = () => {
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title='Admin' id='adminmenu'>
                   <LinkContainer to='/admin/userlist'>
-                    <NavDropdown.Item>Người dùng</NavDropdown.Item>
+                    <NavDropdown.Item>Thành viên</NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to='/admin/productlist'>
                     <NavDropdown.Item>Sản phẩm</NavDropdown.Item>

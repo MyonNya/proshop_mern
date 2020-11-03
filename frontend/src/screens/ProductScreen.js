@@ -28,17 +28,19 @@ const ProductScreen = ({ history, match }) => {
   const productReviewCreate = useSelector((state) => state.productReviewCreate)
   const {
     success: successProductReview,
+    loading: loadingProductReview,
     error: errorProductReview,
   } = productReviewCreate
 
   useEffect(() => {
     if (successProductReview) {
-      alert('Review Submitted!')
       setRating(0)
       setComment('')
+    }
+    if (!product._id || product._id !== match.params.id) {
+      dispatch(listProductDetails(match.params.id))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
-    dispatch(listProductDetails(match.params.id))
   }, [dispatch, match, successProductReview])
 
   const addToCartHandler = () => {
@@ -84,7 +86,7 @@ const ProductScreen = ({ history, match }) => {
                 </ListGroup.Item>
                 <ListGroup.Item>Giá: ${product.price}</ListGroup.Item>
                 <ListGroup.Item>
-                  Miêu tả: {product.description}
+                  Mô tả: {product.description}
                 </ListGroup.Item>
               </ListGroup>
             </Col>
@@ -161,6 +163,12 @@ const ProductScreen = ({ history, match }) => {
                 ))}
                 <ListGroup.Item>
                   <h2>Viết đánh giá</h2>
+                  {successProductReview && (
+                    <Message variant='success'>
+                      Đánh giá gửi thành công
+                    </Message>
+                  )}
+                  {loadingProductReview && <Loader />}
                   {errorProductReview && (
                     <Message variant='danger'>{errorProductReview}</Message>
                   )}
@@ -175,14 +183,14 @@ const ProductScreen = ({ history, match }) => {
                         >
                           <option value=''>Chọn...</option>
                           <option value='1'>1 - Tệ</option>
-                          <option value='2'>2 - Vừa đủ</option>
+                          <option value='2'>2 - Tạm</option>
                           <option value='3'>3 - Tốt</option>
                           <option value='4'>4 - Rất tốt</option>
-                          <option value='5'>5 - Tuyết vời</option>
+                          <option value='5'>5 - Tuyệt vời</option>
                         </Form.Control>
                       </Form.Group>
                       <Form.Group controlId='comment'>
-                        <Form.Label>Bình luận</Form.Label>
+                        <Form.Label>Bình luật</Form.Label>
                         <Form.Control
                           as='textarea'
                           row='3'
@@ -190,13 +198,17 @@ const ProductScreen = ({ history, match }) => {
                           onChange={(e) => setComment(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
-                      <Button type='submit' variant='primary'>
+                      <Button
+                        disabled={loadingProductReview}
+                        type='submit'
+                        variant='primary'
+                      >
                         Gửi
                       </Button>
                     </Form>
                   ) : (
                     <Message>
-                      Hãy <Link to='/login'>Đăng nhập</Link> để viết đánh giá{' '}
+                      Hãy <Link to='/login'>đăng nhập</Link> để đánh giá{' '}
                     </Message>
                   )}
                 </ListGroup.Item>

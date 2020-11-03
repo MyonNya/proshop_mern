@@ -6,6 +6,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { listMyOrders } from '../actions/orderActions'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('')
@@ -32,7 +33,8 @@ const ProfileScreen = ({ location, history }) => {
     if (!userInfo) {
       history.push('/login')
     } else {
-      if (!user.name) {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET })
         dispatch(getUserDetails('profile'))
         dispatch(listMyOrders())
       } else {
@@ -40,12 +42,12 @@ const ProfileScreen = ({ location, history }) => {
         setEmail(user.email)
       }
     }
-  }, [dispatch, history, userInfo, user])
+  }, [dispatch, history, userInfo, user, success])
 
   const submitHandler = (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
-      setMessage('Mật khẩu không đúng')
+      setMessage('Mật khẩu không trùng')
     } else {
       dispatch(updateUserProfile({ id: user._id, name, email, password }))
     }
@@ -54,56 +56,61 @@ const ProfileScreen = ({ location, history }) => {
   return (
     <Row>
       <Col md={3}>
-        <h2>Hồ sơ tài khoản</h2>
+        <h2>Hồ sơ thành viên</h2>
         {message && <Message variant='danger'>{message}</Message>}
-        {error && <Message variant='danger'>{error}</Message>}
+        {}
         {success && <Message variant='success'>Cập nhật hồ sơ</Message>}
-        {loading && <Loader />}
-        <Form onSubmit={submitHandler}>
-          <Form.Group controlId='name'>
-            <Form.Label>Tên</Form.Label>
-            <Form.Control
-              type='name'
-              placeholder='Nhập name'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message variant='danger'>{error}</Message>
+        ) : (
+          <Form onSubmit={submitHandler}>
+            <Form.Group controlId='name'>
+              <Form.Label>Tên</Form.Label>
+              <Form.Control
+                type='name'
+                placeholder='Nhập tên'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
 
-          <Form.Group controlId='email'>
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type='email'
-              placeholder='Nhập email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
+            <Form.Group controlId='email'>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type='email'
+                placeholder='Nhập email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
 
-          <Form.Group controlId='password'>
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type='password'
-              placeholder='Nhập password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
+            <Form.Group controlId='password'>
+              <Form.Label>Mật khẩu</Form.Label>
+              <Form.Control
+                type='password'
+                placeholder='Nhập mật khẩu'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
 
-          <Form.Group controlId='confirmPassword'>
-            <Form.Label>Xác nhận mật khẩu</Form.Label>
-            <Form.Control
-              type='password'
-              placeholder='Xác nhận password'
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            ></Form.Control>
-          </Form.Group>
+            <Form.Group controlId='confirmPassword'>
+              <Form.Label>Xác nhận mật khẩu</Form.Label>
+              <Form.Control
+                type='password'
+                placeholder='Xác nhận mật khẩu'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
 
-          <Button type='submit' variant='primary'>
-            Cập nhật
-          </Button>
-        </Form>
+            <Button type='submit' variant='primary'>
+              Cập nhật
+            </Button>
+          </Form>
+        )}
       </Col>
       <Col md={9}>
         <h2>Đơn hàng của tôi</h2>

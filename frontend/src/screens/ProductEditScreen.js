@@ -46,7 +46,7 @@ const ProductEditScreen = ({ match, history }) => {
         setImage(product.image)
         setBrand(product.brand)
         setCategory(product.category)
-        setCountInStock(product.countInSock)
+        setCountInStock(product.countInStock)
         setDescription(product.description)
       }
     }
@@ -97,7 +97,7 @@ const ProductEditScreen = ({ match, history }) => {
         Quay về
       </Link>
       <FormContainer>
-        <h1>Sửa sản phẩm</h1>
+        <h1>Chỉnh sửa sản phẩm</h1>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (
@@ -110,7 +110,7 @@ const ProductEditScreen = ({ match, history }) => {
               <Form.Label>Tên</Form.Label>
               <Form.Control
                 type='name'
-                placeholder='Enter name'
+                placeholder='Nhập tên'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               ></Form.Control>
@@ -120,23 +120,23 @@ const ProductEditScreen = ({ match, history }) => {
               <Form.Label>Giá</Form.Label>
               <Form.Control
                 type='number'
-                placeholder='Enter price'
+                placeholder='Nhập giá'
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId='image'>
-              <Form.Label>Hình</Form.Label>
+              <Form.Label>Ảnh</Form.Label>
               <Form.Control
                 type='text'
-                placeholder='Enter image url'
+                placeholder='Nhập ảnh url'
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
               <Form.File
                 id='image-file'
-                label='Choose File'
+                label='Chọn File'
                 custom
                 onChange={uploadFileHandler}
               ></Form.File>
@@ -147,7 +147,7 @@ const ProductEditScreen = ({ match, history }) => {
               <Form.Label>Nhãn hiệu</Form.Label>
               <Form.Control
                 type='text'
-                placeholder='Enter brand'
+                placeholder='Nhập nhãn hiệu'
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
               ></Form.Control>
@@ -157,7 +157,7 @@ const ProductEditScreen = ({ match, history }) => {
               <Form.Label>Số lượng sẵn có</Form.Label>
               <Form.Control
                 type='number'
-                placeholder='Enter countInStock'
+                placeholder='Nhập số lượng'
                 value={countInStock}
                 onChange={(e) => setCountInStock(e.target.value)}
               ></Form.Control>
@@ -167,17 +167,17 @@ const ProductEditScreen = ({ match, history }) => {
               <Form.Label>Danh mục</Form.Label>
               <Form.Control
                 type='text'
-                placeholder='Enter category'
+                placeholder='Nhập danh mục'
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId='description'>
-              <Form.Label>Miêu tả</Form.Label>
+              <Form.Label>Mô tả</Form.Label>
               <Form.Control
                 type='text'
-                placeholder='Enter description'
+                placeholder='Nhập mô tả'
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></Form.Control>

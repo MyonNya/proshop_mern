@@ -47,7 +47,7 @@ const RegisterScreen = ({ location, history }) => {
           <Form.Label>Tên</Form.Label>
           <Form.Control
             type='name'
-            placeholder='Nhập name'
+            placeholder='Nhập tên'
             value={name}
             onChange={(e) => setName(e.target.value)}
           ></Form.Control>
@@ -67,17 +67,17 @@ const RegisterScreen = ({ location, history }) => {
           <Form.Label>Mật khẩu</Form.Label>
           <Form.Control
             type='password'
-            placeholder='Nhập password'
+            placeholder='Nhập mật khẩu'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
         <Form.Group controlId='confirmPassword'>
-          <Form.Label>Xác nhận Password</Form.Label>
+          <Form.Label>Xác nhận mật khẩu</Form.Label>
           <Form.Control
             type='password'
-            placeholder='Xác nhận password'
+            placeholder='Xác nhận mật khẩu'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           ></Form.Control>
@@ -90,7 +90,7 @@ const RegisterScreen = ({ location, history }) => {
 
       <Row className='py-3'>
         <Col>
-          Có tài khoản?{' '}
+          Bạn có tài khoản?{' '}
           <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
             Đăng nhập
           </Link>

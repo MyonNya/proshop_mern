@@ -92,7 +92,7 @@ const UserEditScreen = ({ match, history }) => {
             </Form.Group>
 
             <Button type='submit' variant='primary'>
-              Cập nhập
+              Cập nhật
             </Button>
           </Form>
         )}

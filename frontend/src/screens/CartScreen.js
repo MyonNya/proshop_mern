@@ -32,7 +32,7 @@ const CartScreen = ({ match, location, history }) => {
   return (
     <Row>
       <Col md={8}>
-        <h1>Giò hàng</h1>
+        <h1>Giỏ hàng</h1>
         {cartItems.length === 0 ? (
           <Message>
             Giỏ hàng trống <Link to='/'>Quay về</Link>

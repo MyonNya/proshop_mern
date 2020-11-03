@@ -49,14 +49,14 @@ const LoginScreen = ({ location, history }) => {
           <Form.Label>Mật khẩu</Form.Label>
           <Form.Control
             type='password'
-            placeholder='Nhập password'
+            placeholder='Nhập mật khẩu'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
         <Button type='submit' variant='primary'>
-          Đăng nhập
+          Đăng ký
         </Button>
       </Form>
 
